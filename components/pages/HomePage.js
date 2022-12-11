@@ -48,16 +48,63 @@ export default function HomePage() {
                     </View>
                 </View>
             </TouchableOpacity>
+            <TouchableOpacity>
+                <View style={styles.attendance}>
+                    <View style={{marginBottom: 10}}>
+                        <Text style={{fontSize: 20}}>Посещаемость</Text>
+                    </View>
+                    <View style={{alignItems: 'center'}}>
+                        <Text style={{fontSize: 18}}>Процент посещаемости за </Text>
+                        <Text style={{fontSize: 18}}>последнюю неделю: 0% </Text>
+                    </View>
+                    <View style={{position: 'absolute', right: 10, top: '25%'}}>
+                        <Image source={arrow} style={{
+                            width: 32,
+                            height: 32,
+                            marginTop: 25,
+                        }}></Image>
+                    </View>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity>
+                <View style={styles.duty}>
+                    <View style={{marginBottom: 10}}>
+                        <Text style={{fontSize: 20}}>Долги</Text>
+                    </View>
+                    <View style={{alignItems: 'center'}}>
+                        <Text style={{fontSize: 18}}>Самый приоритетный </Text>
+                        <Text style={{fontSize: 18}}>долг: ОРПО </Text>
+                    </View>
+                    <View style={{position: 'absolute', right: 10, top: '25%'}}>
+                        <Image source={arrow} style={{
+                            width: 32,
+                            height: 32,
+                            marginTop: 25,
+                        }}></Image>
+                    </View>
+                </View>
+            </TouchableOpacity>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     timetable: {
+        marginTop:20,
         borderTopColor: '#1177d1',
         borderTopWidth: 1,
     },
     gpa: {
+        marginTop:20,
+        borderTopColor: '#1177d1',
+        borderTopWidth: 1,
+    },
+    attendance: {
+        marginTop:20,
+        borderTopColor: '#1177d1',
+        borderTopWidth: 1,
+    },
+    duty: {
         marginTop:20,
         borderTopColor: '#1177d1',
         borderTopWidth: 1,
