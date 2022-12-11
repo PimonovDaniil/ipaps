@@ -15,6 +15,7 @@ import close from './assets/close.png';
 // Photo
 import photo from './assets/photo.jpg';
 import MenuAnimation from "./components/MenuAnimation";
+import HomePage from "./components/pages/HomePage";
 
 export default function App() {
     const [currentTab, setCurrentTab] = useState("Home");
@@ -115,22 +116,7 @@ export default function App() {
                         color: 'black',
                         paddingTop: 20
                     }}>{currentTab}</Text>
-
-                    <Image source={photo} style={{
-                        width: '100%',
-                        height: 300,
-                        borderRadius: 15,
-                        marginTop: 25
-                    }}></Image>
-
-                    <Text style={{
-                        fontSize: 20,
-                        fontWeight: 'bold'
-                        , paddingTop: 15,
-                        paddingBottom: 5
-                    }}>Jenna Ezarik</Text>
-
-                    <Text style={{}}>Techie, YouTuber, PS Lover, Apple Sheep's Sister</Text>
+                    {currentTab==='Home' && <HomePage/>}
                 </Animated.View>
 
             </Animated.View>

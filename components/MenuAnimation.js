@@ -1,8 +1,6 @@
 import React from 'react';
-import type {Node} from 'react';
 import {Animated, TouchableOpacity} from 'react-native';
 
-//export default function MenuAnimation(showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset) {
 export default function MenuAnimation(props) {
     return (
         <TouchableOpacity onPress={() => {
