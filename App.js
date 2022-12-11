@@ -55,10 +55,10 @@ export default function App() {
                         // Tab Bar Buttons....
                     }
 
-                    {TabButton(currentTab, setCurrentTab, "Home", home)}
-                    {TabButton(currentTab, setCurrentTab, "Search", search)}
-                    {TabButton(currentTab, setCurrentTab, "Notifications", notifications)}
-                    {TabButton(currentTab, setCurrentTab, "Settings", settings)}
+                    {TabButton(currentTab, setCurrentTab, "Home", home, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
+                    {TabButton(currentTab, setCurrentTab, "Search", search, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
+                    {TabButton(currentTab, setCurrentTab, "Notifications", notifications, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
+                    {TabButton(currentTab, setCurrentTab, "Settings", settings, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
 
                 </View>
 
@@ -99,35 +99,8 @@ export default function App() {
                         translateY: closeButtonOffset
                     }]
                 }}>
-                    <TouchableOpacity onPress={() => {
-                        // Do Actions Here....
-                        // Scaling the view...
-                        Animated.timing(scaleValue, {
-                            toValue: showMenu ? 1 : 0.88,
-                            duration: 300,
-                            useNativeDriver: true
-                        })
-                            .start()
-
-                        Animated.timing(offsetValue, {
-                            // YOur Random Value...
-                            toValue: showMenu ? 0 : 230,
-                            duration: 300,
-                            useNativeDriver: true
-                        })
-                            .start()
-
-                        Animated.timing(closeButtonOffset, {
-                            // YOur Random Value...
-                            toValue: !showMenu ? -30 : 0,
-                            duration: 300,
-                            useNativeDriver: true
-                        })
-                            .start()
-
-                        setShowMenu(!showMenu);
-                    }}>
-
+                    <MenuAnimation showMenu={showMenu} setShowMenu={setShowMenu} scaleValue={scaleValue}
+                                   offsetValue={offsetValue} closeButtonOffset={closeButtonOffset} title={false}>
                         <Image source={showMenu ? close : menu} style={{
                             width: 20,
                             height: 20,
@@ -135,8 +108,7 @@ export default function App() {
                             marginTop: 40,
 
                         }}></Image>
-
-                    </TouchableOpacity>
+                    </MenuAnimation>
                     <Text style={{
                         fontSize: 30,
                         fontWeight: 'bold',
@@ -168,7 +140,7 @@ export default function App() {
 }
 
 // For multiple Buttons...
-const TabButton = (currentTab, setCurrentTab, title, image) => {
+const TabButton = (currentTab, setCurrentTab, title, image, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset) => {
     return (
 
         <TouchableOpacity onPress={() => {
@@ -178,30 +150,33 @@ const TabButton = (currentTab, setCurrentTab, title, image) => {
                 setCurrentTab(title);
             }
         }}>
-            <View style={{
-                flexDirection: "row",
-                alignItems: 'center',
-                paddingVertical: 8,
-                backgroundColor: currentTab === title ? 'white' : 'transparent',
-                paddingLeft: 13,
-                paddingRight: 35,
-                borderRadius: 8,
-                marginTop: 15
-            }}>
+            <MenuAnimation showMenu={showMenu} setShowMenu={setShowMenu} scaleValue={scaleValue}
+                           offsetValue={offsetValue} closeButtonOffset={closeButtonOffset} title={title}
+                           setCurrentTab={setCurrentTab}>
+                <View style={{
+                    flexDirection: "row",
+                    alignItems: 'center',
+                    paddingVertical: 8,
+                    backgroundColor: currentTab === title ? 'white' : 'transparent',
+                    paddingLeft: 13,
+                    paddingRight: 35,
+                    borderRadius: 8,
+                    marginTop: 15
+                }}>
 
-                <Image source={image} style={{
-                    width: 25, height: 25,
-                    tintColor: currentTab === title ? "#1177d1" : "white"
-                }}></Image>
+                    <Image source={image} style={{
+                        width: 25, height: 25,
+                        tintColor: currentTab === title ? "#1177d1" : "white"
+                    }}></Image>
 
-                <Text style={{
-                    fontSize: 15,
-                    fontWeight: 'bold',
-                    paddingLeft: 15,
-                    color: currentTab === title ? "#1177d1" : "white"
-                }}>{title}</Text>
-
-            </View>
+                    <Text style={{
+                        fontSize: 15,
+                        fontWeight: 'bold',
+                        paddingLeft: 15,
+                        color: currentTab === title ? "#1177d1" : "white"
+                    }}>{title}</Text>
+                </View>
+            </MenuAnimation>
         </TouchableOpacity>
     );
 }
