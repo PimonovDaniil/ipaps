@@ -1,7 +1,7 @@
 import {StatusBar} from 'expo-status-bar';
 import React, {useRef, useState} from 'react';
 import {Animated, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import logo from './assets/logotype-tusur.png';
+import logo from './assets/tusur_logo.png';
 // Tab ICons...
 import home from './assets/home.png';
 import search from './assets/search.png';
@@ -34,8 +34,8 @@ export default function App() {
 
             <View style={{justifyContent: 'flex-start', padding: 15}}>
                 <Image source={logo} style={{
-                    width: 100,
-                    height: 28,
+                    width: 120,
+                    height: 30,
                     marginTop: 25,
                 }}></Image>
 
