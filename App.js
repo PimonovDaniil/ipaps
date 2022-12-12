@@ -8,6 +8,7 @@ import timetable from './assets/icons8-вахтенный-журнал-80.png';
 import notifications from './assets/bell.png';
 import settings from './assets/settings.png';
 import logout from './assets/logout.png';
+import marks from './assets/icons8-экзамен-80.png';
 // Menu
 import menu from './assets/menu.png';
 import close from './assets/close.png';
@@ -17,6 +18,7 @@ import photo from './assets/photo.jpg';
 import MenuAnimation from "./components/MenuAnimation";
 import HomePage from "./components/pages/HomePage";
 import TimetablePage from "./components/pages/TimetablePage";
+import MarksPage from "./components/pages/MarksPage";
 
 export default function App() {
     const [currentTab, setCurrentTab] = useState("Home");
@@ -59,6 +61,7 @@ export default function App() {
 
                     {TabButton(currentTab, setCurrentTab, "Home", home, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
                     {TabButton(currentTab, setCurrentTab, "Timetable", timetable, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
+                    {TabButton(currentTab, setCurrentTab, "Marks", marks, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
                     {TabButton(currentTab, setCurrentTab, "Notifications", notifications, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
                     {TabButton(currentTab, setCurrentTab, "Settings", settings, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
 
@@ -119,6 +122,7 @@ export default function App() {
                     }}>{currentTab}</Text>
                     {currentTab==='Home' && <HomePage/>}
                     {currentTab==='Timetable' && <TimetablePage/>}
+                    {currentTab==='Marks' && <MarksPage/>}
                 </Animated.View>
 
             </Animated.View>
