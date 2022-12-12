@@ -1,6 +1,7 @@
 import {StatusBar} from 'expo-status-bar';
 import React, {useRef, useState} from 'react';
 import {Animated, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {vh, vw} from "react-native-expo-viewport-units";
 import logo from './assets/tusur_logo.png';
 // Tab ICons...
 import home from './assets/home.png';

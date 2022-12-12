@@ -12,7 +12,7 @@ export default function TimetablePage() {
     }, [internetCheck]);
 
     const [isDayOpen, setIsDayOpen] = useState([false, false, false, false, false, false]);
-    const words = () => {
+    const days = () => {
         let days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
 
         let content = [];
@@ -43,9 +43,10 @@ export default function TimetablePage() {
             </View>
         )
     }
+
     return (
         <View>
-            {words()}
+            {days()}
         </View>
     );
 };
