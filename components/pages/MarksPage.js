@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
+import React, {Component, useRef, useState} from 'react';
 import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Dimensions} from 'react-native';
 import {vh, vw} from "react-native-expo-viewport-units";
+import {Picker} from '@react-native-picker/picker'
 import {
     LineChart,
     BarChart,
@@ -31,74 +32,100 @@ export default function MarksPage() {
             );
         }
         return (
-            <View style={{marginTop:5}}>
+            <View style={{marginTop: 5}}>
                 {content}
             </View>
         )
     }
 
-    return (
-        <View>
-            <View>
-                <Text style={{fontSize: 20}}>Моя успеваемость</Text>
-                <LineChart
-                    data={{
-                        labels: ["ЭС", "КТ1", "КТ2", "ЭС", "КТ1", "КТ2"],
-                        datasets: [
-                            {
-                                data: [
-                                    Math.random() * 5,
-                                    Math.random() * 5,
-                                    Math.random() * 5,
-                                    Math.random() * 5,
-                                    Math.random() * 5,
-                                    Math.random() * 5,
-                                ]
-                            }
-                        ]
-                    }}
-                    width={Dimensions.get("window").width - 25} // from react-native
-                    height={vh(30)}
-                    yAxisLabel=""
-                    yAxisSuffix=""
-                    yAxisInterval={1} // optional, defaults to 1
-                    chartConfig={{
-                        backgroundColor: "#1177d1",
-                        backgroundGradientFrom: "#118bd1",
-                        backgroundGradientTo: "#1194d1",
-                        decimalPlaces: 2, // optional, defaults to 2dp
-                        color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                        labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                        style: {
-                            borderRadius: 16
-                        },
-                        propsForDots: {
-                            r: "6",
-                            strokeWidth: "2",
-                            stroke: "#1161d1"
-                        }
-                    }}
-                    bezier
-                    style={{
-                        marginVertical: 8,
-                        borderRadius: 16
-                    }}
-                />
-            </View>
+    const pickerRef = useRef();
 
-            {/*{subject()}*/}
-            <View style={styles.container}>
-                <ScrollView scrollEventThrottle={16} showsVerticalScrollIndicator={false}>
-                    {subject()}
-                </ScrollView>
-            </View>
+    function open() {
+        pickerRef.current.focus();
+    }
+
+    function close() {
+        pickerRef.current.blur();
+    }
+
+    const [selectedLanguage, setSelectedLanguage] = useState();
+
+
+    return (
+        <View style={styles.container}>
+            <ScrollView scrollEventThrottle={16} showsVerticalScrollIndicator={false}>
+                <View>
+                    <Text style={{fontSize: 20}}>Моя успеваемость</Text>
+                    <LineChart
+                        data={{
+                            labels: ["ЭС", "КТ1", "КТ2", "ЭС", "КТ1", "КТ2"],
+                            datasets: [
+                                {
+                                    data: [
+                                        Math.random() * 5,
+                                        Math.random() * 5,
+                                        Math.random() * 5,
+                                        Math.random() * 5,
+                                        Math.random() * 5,
+                                        Math.random() * 5,
+                                    ]
+                                }
+                            ]
+                        }}
+                        width={Dimensions.get("window").width - 25} // from react-native
+                        height={220}
+                        yAxisLabel=""
+                        yAxisSuffix=""
+                        yAxisInterval={1} // optional, defaults to 1
+                        chartConfig={{
+                            backgroundColor: "#1177d1",
+                            backgroundGradientFrom: "#118bd1",
+                            backgroundGradientTo: "#1194d1",
+                            decimalPlaces: 2, // optional, defaults to 2dp
+                            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                            style: {
+                                borderRadius: 16
+                            },
+                            propsForDots: {
+                                r: "6",
+                                strokeWidth: "2",
+                                stroke: "#1161d1"
+                            }
+                        }}
+                        bezier
+                        style={{
+                            marginVertical: 8,
+                            borderRadius: 16
+                        }}
+                    />
+                </View>
+
+
+                <Picker
+                    ref={pickerRef}
+                    selectedValue={selectedLanguage}
+                    onValueChange={(itemValue, itemIndex) =>
+                        setSelectedLanguage(itemValue)
+                    }>
+                    <Picker.Item label="KT2 2022 осень" value="KT2 2022 осень"/>
+                    <Picker.Item label="KT1 2022 осень" value="KT1 2022 осень"/>
+                    <Picker.Item label="ЭС 2021 весна" value="ЭС 2021 весна"/>
+                    <Picker.Item label="KT2 2021 весна" value="KT2 2021 весна"/>
+                    <Picker.Item label="KT1 2021 весна" value="KT1 2021 весна"/>
+                </Picker>
+
+
+                {subject()}
+            </ScrollView>
         </View>
     );
 };
 
+
 const styles = StyleSheet.create({
     container: {
-        height: vh(45),
+        height: vh(80),
     },
     tableLine: {
         marginTop: -1,
