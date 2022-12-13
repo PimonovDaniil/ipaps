@@ -39,15 +39,12 @@ export default function MarksPage() {
     }
 
     const pickerRef = useRef();
-
     function open() {
         pickerRef.current.focus();
     }
-
     function close() {
         pickerRef.current.blur();
     }
-
     const [selectedLanguage, setSelectedLanguage] = useState();
 
 
@@ -114,7 +111,6 @@ export default function MarksPage() {
                     <Picker.Item label="KT2 2021 весна" value="KT2 2021 весна"/>
                     <Picker.Item label="KT1 2021 весна" value="KT1 2021 весна"/>
                 </Picker>
-
 
                 {subject()}
             </ScrollView>

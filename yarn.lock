@@ -1065,6 +1065,16 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     "to-fast-properties" "^2.0.0"
 
+"@chartiful/react-native-chart-builder@^0.1.6", "@chartiful/react-native-chart-builder@^0.1.8":
+  "integrity" "sha512-rYVHyOA01kTMTyTqsF6+SOpBkAgOF6G6mh4kdFkEJqFnHGpwVrycDM6SI7cuTyN7awDhhHBrztguV+7TZokgZw=="
+  "resolved" "https://registry.npmjs.org/@chartiful/react-native-chart-builder/-/react-native-chart-builder-0.1.8.tgz"
+  "version" "0.1.8"
+
+"@chartiful/react-native-horizontal-bar-graph@^0.1.2":
+  "integrity" "sha512-mm5ZYqyFpasNHmmpkPf9Cii6UYvqFjIDn30I/ijt24oF+ofeSiktS9fD4+mQeH2S4NxtFW51KmABqGcWjC8UdQ=="
+  "resolved" "https://registry.npmjs.org/@chartiful/react-native-horizontal-bar-graph/-/react-native-horizontal-bar-graph-0.1.2.tgz"
+  "version" "0.1.2"
+
 "@egjs/hammerjs@^2.0.17":
   "integrity" "sha512-XQsZgjm2EcVUiZQf11UBJQfmZeEmOW8DpI1gsFeln6w0ae0ii4dMQEQ0kjl6DspdWX1aGY1/loyXnP0JS06e/A=="
   "resolved" "https://registry.npmjs.org/@egjs/hammerjs/-/hammerjs-2.0.17.tgz"

@@ -10,6 +10,7 @@ import notifications from './assets/bell.png';
 import settings from './assets/settings.png';
 import logout from './assets/logout.png';
 import marks from './assets/icons8-экзамен-80.png';
+import attendance from './assets/free-icon-attendance.png'
 // Menu
 import menu from './assets/menu.png';
 import close from './assets/close.png';
@@ -20,6 +21,7 @@ import MenuAnimation from "./components/MenuAnimation";
 import HomePage from "./components/pages/HomePage";
 import TimetablePage from "./components/pages/TimetablePage";
 import MarksPage from "./components/pages/MarksPage";
+import AttendancePage from "./components/pages/AttendancePage";
 
 export default function App() {
     const [currentTab, setCurrentTab] = useState("Home");
@@ -63,6 +65,7 @@ export default function App() {
                     {TabButton(currentTab, setCurrentTab, "Home", home, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
                     {TabButton(currentTab, setCurrentTab, "Timetable", timetable, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
                     {TabButton(currentTab, setCurrentTab, "Marks", marks, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
+                    {TabButton(currentTab, setCurrentTab, "Attendance", attendance, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
                     {TabButton(currentTab, setCurrentTab, "Notifications", notifications, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
                     {TabButton(currentTab, setCurrentTab, "Settings", settings, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
 
@@ -124,6 +127,7 @@ export default function App() {
                     {currentTab==='Home' && <HomePage/>}
                     {currentTab==='Timetable' && <TimetablePage/>}
                     {currentTab==='Marks' && <MarksPage/>}
+                    {currentTab==='Attendance' && <AttendancePage/>}
                 </Animated.View>
 
             </Animated.View>
