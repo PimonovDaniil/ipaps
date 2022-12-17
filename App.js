@@ -1,6 +1,7 @@
 import {StatusBar} from 'expo-status-bar';
 import React, {useRef, useState} from 'react';
 import {Animated, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import {vh, vw} from "react-native-expo-viewport-units";
 import logo from './assets/tusur_logo.png';
 // Tab ICons...
@@ -34,6 +35,10 @@ export default function App() {
     // Scale Intially must be One...
     const scaleValue = useRef(new Animated.Value(1)).current;
     const closeButtonOffset = useRef(new Animated.Value(0)).current;
+    const config = {
+        velocityThreshold: 0.3,
+        directionalOffsetThreshold: 80
+    };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -68,7 +73,6 @@ export default function App() {
                     {TabButton(currentTab, setCurrentTab, "Attendance", attendance, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
                     {TabButton(currentTab, setCurrentTab, "Notifications", notifications, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
                     {TabButton(currentTab, setCurrentTab, "Settings", settings, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
-
                 </View>
 
                 <View>
@@ -125,10 +129,68 @@ export default function App() {
                             paddingTop: 20
                         }}>{currentTab}</Text>
                     </View>
-                    {currentTab === 'Home' && <HomePage/>}
-                    {currentTab === 'Timetable' && <TimetablePage/>}
-                    {currentTab === 'Marks' && <MarksPage/>}
-                    {currentTab === 'Attendance' && <AttendancePage/>}
+                    <GestureRecognizer
+                        onSwipeLeft={() => {
+                            if (showMenu) {
+                                Animated.timing(scaleValue, {
+                                    toValue: showMenu ? 1 : 0.88,
+                                    duration: 300,
+                                    useNativeDriver: true
+                                })
+                                    .start()
+
+                                Animated.timing(offsetValue, {
+                                    // YOur Random Value...
+                                    toValue: showMenu ? 0 : 230,
+                                    duration: 300,
+                                    useNativeDriver: true
+                                })
+                                    .start()
+
+                                Animated.timing(closeButtonOffset, {
+                                    // YOur Random Value...
+                                    toValue: !showMenu ? -30 : 0,
+                                    duration: 300,
+                                    useNativeDriver: true
+                                })
+                                    .start()
+                                setShowMenu(!showMenu);
+                            }
+                        }}
+                        onSwipeRight={() => {
+                            if (!showMenu) {
+                                Animated.timing(scaleValue, {
+                                    toValue: showMenu ? 1 : 0.88,
+                                    duration: 300,
+                                    useNativeDriver: true
+                                })
+                                    .start()
+
+                                Animated.timing(offsetValue, {
+                                    // YOur Random Value...
+                                    toValue: showMenu ? 0 : 230,
+                                    duration: 300,
+                                    useNativeDriver: true
+                                })
+                                    .start()
+
+                                Animated.timing(closeButtonOffset, {
+                                    // YOur Random Value...
+                                    toValue: !showMenu ? -30 : 0,
+                                    duration: 300,
+                                    useNativeDriver: true
+                                })
+                                    .start()
+                                setShowMenu(!showMenu);
+                            }
+                        }}
+                        config={config}
+                    >
+                        {currentTab === 'Home' && <HomePage/>}
+                        {currentTab === 'Timetable' && <TimetablePage/>}
+                        {currentTab === 'Marks' && <MarksPage/>}
+                        {currentTab === 'Attendance' && <AttendancePage/>}
+                    </GestureRecognizer>
                 </Animated.View>
 
             </Animated.View>

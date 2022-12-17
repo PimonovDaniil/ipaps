@@ -6,6 +6,7 @@ import {LineChart} from "react-native-chart-kit";
 import {Picker} from "@react-native-picker/picker";
 
 
+
 export default function AttendancePage() {
 
     const histogram = () => {
