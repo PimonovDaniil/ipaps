@@ -1,9 +1,10 @@
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import arrow from '../../assets/icons8-двойная-стрелка-вправо-32.png';
+import {vh} from "react-native-expo-viewport-units";
 export default function HomePage() {
     return (
-        <View style={{paddingHorizontal: 15}}>
+        <View style={{paddingHorizontal: 15, height: vh(80)}}>
             <TouchableOpacity>
                 <View style={styles.timetable}>
                     <View style={{marginBottom: 10}}>

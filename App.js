@@ -12,6 +12,8 @@ import settings from './assets/settings.png';
 import logout from './assets/logout.png';
 import marks from './assets/icons8-экзамен-80.png';
 import attendance from './assets/free-icon-attendance.png'
+import failures from './assets/icons8-тест-не-пройден-50.png'
+import analytics from './assets/icons8-комбинированный-график-50.png'
 // Menu
 import menu from './assets/menu.png';
 import close from './assets/close.png';
@@ -71,6 +73,8 @@ export default function App() {
                     {TabButton(currentTab, setCurrentTab, "Timetable", timetable, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
                     {TabButton(currentTab, setCurrentTab, "Marks", marks, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
                     {TabButton(currentTab, setCurrentTab, "Attendance", attendance, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
+                    {TabButton(currentTab, setCurrentTab, "Failures", failures, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
+                    {TabButton(currentTab, setCurrentTab, "Analytics", analytics, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
                     {TabButton(currentTab, setCurrentTab, "Notifications", notifications, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
                     {TabButton(currentTab, setCurrentTab, "Settings", settings, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
                 </View>
