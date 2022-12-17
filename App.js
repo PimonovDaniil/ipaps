@@ -25,6 +25,7 @@ import HomePage from "./components/pages/HomePage";
 import TimetablePage from "./components/pages/TimetablePage";
 import MarksPage from "./components/pages/MarksPage";
 import AttendancePage from "./components/pages/AttendancePage";
+import FailuresPage from "./components/pages/FailuresPage";
 
 export default function App() {
     const [currentTab, setCurrentTab] = useState("Home");
@@ -194,6 +195,7 @@ export default function App() {
                         {currentTab === 'Timetable' && <TimetablePage/>}
                         {currentTab === 'Marks' && <MarksPage/>}
                         {currentTab === 'Attendance' && <AttendancePage/>}
+                        {currentTab === 'Failures' && <FailuresPage/>}
                     </GestureRecognizer>
                 </Animated.View>
 
