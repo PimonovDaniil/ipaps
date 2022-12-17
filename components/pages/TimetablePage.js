@@ -45,7 +45,7 @@ export default function TimetablePage() {
     }
 
     return (
-        <View>
+        <View style={{paddingHorizontal: 15}}>
             {days()}
         </View>
     );

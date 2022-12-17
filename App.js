@@ -89,7 +89,6 @@ export default function App() {
                 bottom: 0,
                 left: 0,
                 right: 0,
-                paddingHorizontal: 15,
                 paddingVertical: 20,
                 borderRadius: showMenu ? 15 : 0,
                 // Transforming View...
@@ -108,26 +107,28 @@ export default function App() {
                         translateY: closeButtonOffset
                     }]
                 }}>
-                    <MenuAnimation showMenu={showMenu} setShowMenu={setShowMenu} scaleValue={scaleValue}
-                                   offsetValue={offsetValue} closeButtonOffset={closeButtonOffset} title={false}>
-                        <Image source={showMenu ? close : menu} style={{
-                            width: 20,
-                            height: 20,
-                            tintColor: 'black',
-                            marginTop: 40,
+                    <View style={{paddingHorizontal: 15}}>
+                        <MenuAnimation showMenu={showMenu} setShowMenu={setShowMenu} scaleValue={scaleValue}
+                                       offsetValue={offsetValue} closeButtonOffset={closeButtonOffset} title={false}>
+                            <Image source={showMenu ? close : menu} style={{
+                                width: 20,
+                                height: 20,
+                                tintColor: 'black',
+                                marginTop: 40,
 
-                        }}></Image>
-                    </MenuAnimation>
-                    <Text style={{
-                        fontSize: 30,
-                        fontWeight: 'bold',
-                        color: 'black',
-                        paddingTop: 20
-                    }}>{currentTab}</Text>
-                    {currentTab==='Home' && <HomePage/>}
-                    {currentTab==='Timetable' && <TimetablePage/>}
-                    {currentTab==='Marks' && <MarksPage/>}
-                    {currentTab==='Attendance' && <AttendancePage/>}
+                            }}></Image>
+                        </MenuAnimation>
+                        <Text style={{
+                            fontSize: 30,
+                            fontWeight: 'bold',
+                            color: 'black',
+                            paddingTop: 20
+                        }}>{currentTab}</Text>
+                    </View>
+                    {currentTab === 'Home' && <HomePage/>}
+                    {currentTab === 'Timetable' && <TimetablePage/>}
+                    {currentTab === 'Marks' && <MarksPage/>}
+                    {currentTab === 'Attendance' && <AttendancePage/>}
                 </Animated.View>
 
             </Animated.View>
