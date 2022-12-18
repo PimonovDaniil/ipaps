@@ -161,7 +161,7 @@ export default function AttendancePage() {
 
 const styles = StyleSheet.create({
     container: {
-        height: vh(80),
+        height: vh((80*Dimensions.get('window').height)/776),
     },
     line: {
         display: 'flex',

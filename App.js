@@ -80,9 +80,9 @@ export default function App() {
                     {TabButton(currentTab, setCurrentTab, "Settings", settings, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
                 </View>
 
-                <View>
-                    {TabButton(currentTab, setCurrentTab, "LogOut", logout)}
-                </View>
+                {/*<View>*/}
+                {/*    {TabButton(currentTab, setCurrentTab, "LogOut", logout)}*/}
+                {/*</View>*/}
 
             </View>
 
@@ -116,7 +116,7 @@ export default function App() {
                         translateY: closeButtonOffset
                     }]
                 }}>
-                    <View style={{paddingHorizontal: 15}}>
+                    <View style={{paddingHorizontal: 15, height: vh(15)}}>
                         <MenuAnimation showMenu={showMenu} setShowMenu={setShowMenu} scaleValue={scaleValue}
                                        offsetValue={offsetValue} closeButtonOffset={closeButtonOffset} title={false}>
                             <Image source={showMenu ? close : menu} style={{

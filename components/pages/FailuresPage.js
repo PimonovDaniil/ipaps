@@ -1,5 +1,5 @@
 import React, {Component, useRef, useState} from 'react';
-import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {vh, vw} from "react-native-expo-viewport-units";
 import arrow from "../../assets/icons8-двойная-стрелка-вправо-32.png";
 
@@ -42,7 +42,7 @@ export default function FailuresPage() {
 
 const styles = StyleSheet.create({
     container: {
-        height: vh(80),
+        height: vh((80*Dimensions.get('window').height)/776),
         paddingHorizontal: 15,
     },
     subject: {

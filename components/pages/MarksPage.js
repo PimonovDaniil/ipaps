@@ -121,7 +121,7 @@ export default function MarksPage() {
 
 const styles = StyleSheet.create({
     container: {
-        height: vh(80),
+        height: vh((80*Dimensions.get('window').height)/776),
         paddingHorizontal: 15,
     },
     tableLine: {
