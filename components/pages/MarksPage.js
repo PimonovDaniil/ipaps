@@ -1,5 +1,5 @@
 import React, {Component, useRef, useState} from 'react';
-import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {Dimensions} from 'react-native';
 import {vh, vw} from "react-native-expo-viewport-units";
 import {Picker} from '@react-native-picker/picker'

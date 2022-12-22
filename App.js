@@ -26,6 +26,7 @@ import TimetablePage from "./components/pages/TimetablePage";
 import MarksPage from "./components/pages/MarksPage";
 import AttendancePage from "./components/pages/AttendancePage";
 import FailuresPage from "./components/pages/FailuresPage";
+import AnalyticsPage from "./components/pages/AnalyticsPage";
 
 export default function App() {
     const [currentTab, setCurrentTab] = useState("Home");
@@ -76,7 +77,7 @@ export default function App() {
                     {TabButton(currentTab, setCurrentTab, "Attendance", attendance, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
                     {TabButton(currentTab, setCurrentTab, "Failures", failures, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
                     {TabButton(currentTab, setCurrentTab, "Analytics", analytics, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
-                    {TabButton(currentTab, setCurrentTab, "Notifications", notifications, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
+                    {/*{TabButton(currentTab, setCurrentTab, "Notifications", notifications, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}*/}
                     {TabButton(currentTab, setCurrentTab, "Settings", settings, showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}
                 </View>
 
@@ -196,6 +197,7 @@ export default function App() {
                         {currentTab === 'Marks' && <MarksPage/>}
                         {currentTab === 'Attendance' && <AttendancePage/>}
                         {currentTab === 'Failures' && <FailuresPage/>}
+                        {currentTab === 'Analytics' && <AnalyticsPage/>}
                     </GestureRecognizer>
                 </Animated.View>
 

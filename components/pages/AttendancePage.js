@@ -1,5 +1,5 @@
-import React, {Component, useRef, useState} from 'react';
-import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useRef, useState} from 'react';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {Dimensions} from 'react-native';
 import {vh, vw} from "react-native-expo-viewport-units";
 import {LineChart} from "react-native-chart-kit";
