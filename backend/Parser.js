@@ -129,7 +129,7 @@ export const getAttendance = async (name, surname, group) => {
     const htmlString = html.toString()
     if (htmlString.includes("Ничего не найдено")) {
         console.log("Wrong name")
-        return [[], [], []]
+        return false
     }
     const fullResponse = await fetch(response.url + '?filter=from_semester_begin')
     if (response.ok !== true) {
