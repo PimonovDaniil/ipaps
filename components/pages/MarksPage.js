@@ -4,12 +4,7 @@ import {Dimensions} from 'react-native';
 import {vh, vw} from "react-native-expo-viewport-units";
 import {Picker} from '@react-native-picker/picker'
 import {
-    LineChart,
-    BarChart,
-    PieChart,
-    ProgressChart,
-    ContributionGraph,
-    StackedBarChart
+    LineChart
 } from "react-native-chart-kit";
 
 
