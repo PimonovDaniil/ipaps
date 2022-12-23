@@ -29,11 +29,11 @@ export default function App() {
                         setGrades(JSON.stringify(r2, null, 2));
                         getTimetable("", 0, memGroup).then(r3 => {
                             setTimetable(JSON.stringify(r3, null, 2));
-                            SecureStore.setItemAsync("attendance", JSON.stringify(attendance)).then(r => {
+                            SecureStore.setItemAsync("attendance", JSON.stringify(r1)).then(r => {
                             });
-                            SecureStore.setItemAsync("timetable", JSON.stringify(timetable)).then(r => {
+                            SecureStore.setItemAsync("timetable", JSON.stringify(r3)).then(r => {
                             });
-                            SecureStore.setItemAsync("grades", JSON.stringify(grades)).then(r => {
+                            SecureStore.setItemAsync("grades", JSON.stringify(r2)).then(r => {
                             });
                             setIsLoading(false);
                             setShowMainPage(true);

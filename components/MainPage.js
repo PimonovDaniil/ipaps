@@ -1,5 +1,5 @@
 import {StatusBar} from 'expo-status-bar';
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Animated, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import {vh, vw} from "react-native-expo-viewport-units";
@@ -24,8 +24,13 @@ import MarksPage from "../components/pages/MarksPage";
 import AttendancePage from "../components/pages/AttendancePage";
 import FailuresPage from "../components/pages/FailuresPage";
 import AnalyticsPage from "../components/pages/AnalyticsPage";
+import * as SecureStore from "expo-secure-store";
+import {getAttendance, getGrades, getTimetable} from "../backend/Parser";
 
 export default function MainPage() {
+    const [name, setName] = useState("");
+    const [surname, setSurname] = useState("");
+    const [group, setGroup] = useState("");
     const [currentTab, setCurrentTab] = useState("Home");
     // To get the curretn Status of menu ...
     const [showMenu, setShowMenu] = useState(false);
@@ -40,6 +45,14 @@ export default function MainPage() {
         velocityThreshold: 0.3,
         directionalOffsetThreshold: 80
     };
+
+    useEffect(() => {
+        (async function () {
+            setName(JSON.parse(await SecureStore.getItemAsync("name")));
+            setSurname(JSON.parse(await SecureStore.getItemAsync("surname")));
+            setGroup(JSON.parse(await SecureStore.getItemAsync("group")));
+        })();
+    }, []);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -56,12 +69,12 @@ export default function MainPage() {
                     fontWeight: 'bold',
                     color: 'white',
                     marginTop: 20
-                }}>Пимонов Даниил</Text>
+                }}>{surname} {name}</Text>
 
                 <Text style={{
                     marginTop: 6,
                     color: 'white'
-                }}>439-3 группа</Text>
+                }}>{group}</Text>
 
                 <View style={{flexGrow: 1, marginTop: 50}}>
                     {
