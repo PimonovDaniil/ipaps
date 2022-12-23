@@ -13,45 +13,52 @@ export default function TimetablePage() {
     const [facult, setFacult] = useState();
     const [num, setNum] = useState();
     const [isLoading, setIsLoading] = useState(false);
+    const [isFirstLoading, setIsFirstLoading] = useState(true);
     useEffect(() => {
         (async function () {
             let vremya = JSON.parse(await SecureStore.getItemAsync("timetable"));
-            setTimetable(vremya);
-            console.log(JSON.stringify(vremya[2], null, 2))
-            setFacult(vremya[1]);
-            setNum(vremya[2]);
+
+            //console.log(JSON.stringify(vremya[2], null, 2))
+            if (isFirstLoading) {
+                setTimetable(vremya);
+                setFacult(vremya[1]);
+                setNum(vremya[2]);
+                setIsFirstLoading(false);
+            }
             setIsLoad(true);
         })();
-    }, [internetCheck,num]);
+    }, [internetCheck, num]);
 
     const [isDayOpen, setIsDayOpen] = useState([false, false, false, false, false, false]);
 
     const subjects = (list) => {
         let content = [];
-        for (let i = 0; i < list.length; i++) {
-            if (list[i]["isReal"]) {
-                content.push(
-                    <View style={{borderBottomColor: "#1177d1", borderBottomWidth: 1}}>
-                        <View style={{alignItems: 'center'}}>
-                            <Text style={{fontSize: 22}}>{list[i]["name"]}</Text>
+        if (list) {
+            for (let i = 0; i < list.length; i++) {
+                if (list[i]["isReal"]) {
+                    content.push(
+                        <View style={{borderBottomColor: "#1177d1", borderBottomWidth: 1}}>
+                            <View style={{alignItems: 'center'}}>
+                                <Text style={{fontSize: 22}}>{list[i]["name"]}</Text>
+                            </View>
+                            <View style={{alignItems: 'center'}}>
+                                <Text style={{fontSize: 16}}>{list[i]["lessonType"]}</Text>
+                            </View>
+                            <View style={{alignItems: 'center'}}>
+                                <Text style={{fontSize: 16}}>{list[i]["classroom"]}</Text>
+                            </View>
+                            <View style={{alignItems: 'center'}}>
+                                <Text style={{fontSize: 14}}>{list[i]["teacher"]}</Text>
+                            </View>
+                            <View style={{alignItems: 'center'}}>
+                                <Text style={{fontSize: 14}}>{list[i]["timeStart"] + " - " + list[i]["timeEnd"]}</Text>
+                            </View>
                         </View>
-                        <View style={{alignItems: 'center'}}>
-                            <Text style={{fontSize: 16}}>{list[i]["lessonType"]}</Text>
-                        </View>
-                        <View style={{alignItems: 'center'}}>
-                            <Text style={{fontSize: 16}}>{list[i]["classroom"]}</Text>
-                        </View>
-                        <View style={{alignItems: 'center'}}>
-                            <Text style={{fontSize: 14}}>{list[i]["teacher"]}</Text>
-                        </View>
-                        <View style={{alignItems: 'center'}}>
-                            <Text style={{fontSize: 14}}>{list[i]["timeStart"] + " - " + list[i]["timeEnd"]}</Text>
-                        </View>
-                    </View>
-                );
+                    );
+                }
             }
-
         }
+
         return (
             <View style={{marginLeft: 30}}>
                 {content}
@@ -91,10 +98,13 @@ export default function TimetablePage() {
         let newNum = num;
         if (direction) {
             newNum++;
+            setNum(num + 1);
         } else {
             newNum--;
+            setNum(num - 1);
         }
-        setNum(newNum);
+        console.log(newNum)
+
         let group = JSON.parse(await SecureStore.getItemAsync("group"));
         setIsLoading(true);
         getTimetable(facult, newNum, group).then(r => {
