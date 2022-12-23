@@ -18,6 +18,9 @@ export default function MarksPage() {
     const [selectedCurse, setSelectedCurse] = useState();
     const [isLoad, setLoad] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [graph, setGraph] = useState([]);
+    const [graphlable, setGraphlable] = useState([]);
+    const [isGraphUpdate, setIsGraphUpdate] = useState(true);
     useEffect(() => {
         (async function () {
             setGrades(JSON.parse(await SecureStore.getItemAsync("grades")));
@@ -29,11 +32,44 @@ export default function MarksPage() {
     }, []);
 
     const subject = () => {
+        let k1 = 0;
+        let k2 = 0;
+        let es = 0;
+        let k12 = 0;
+        let k22 = 0;
+        let es2 = 0;
+        let l1 = 0;
+        let l2 = 0;
+        let l3 = 0;
+        let l4 = 0;
+        let l5 = 0;
+        let l6 = 0;
         let content = [];
         for (let k = 0; k < grades[0].length; k++) {
             content.push(
-                <Text style={{fontSize:20, marginTop: 20, marginBottom:10}}>{grades[0][k]["name"]}</Text>
+                <Text style={{fontSize: 20, marginTop: 20, marginBottom: 10}}>{grades[0][k]["name"]}</Text>
             );
+            if (k === 0) {
+                content.push(
+                    <View
+                        style={[styles.tableLine]}
+                        key={0}>
+                        <View style={styles.column12}>
+                            <Text>Предмет</Text>
+                        </View>
+                        <View style={styles.column2}>
+                            <Text>КТ1</Text>
+                        </View>
+                        <View style={styles.column3}>
+                            <Text>КТ2</Text>
+                        </View>
+                        <View style={styles.column4}>
+                            <Text>ЭС</Text>
+                        </View>
+                    </View>
+                );
+            }
+
             for (let i = 0; i < grades[0][k]["disciplines"].length; i++) {
                 let kt_1 = "-";
                 let kt_2 = "-";
@@ -41,14 +77,33 @@ export default function MarksPage() {
                 for (let j = 0; j < grades[0][k]["disciplines"][i]["marks"].length; j++) {
                     if (grades[0][k]["disciplines"][i]["marks"][j]["type"] === "kt_1") {
                         kt_1 = grades[0][k]["disciplines"][i]["marks"][j]["value"];
+                        if (k === 0) {
+                            k1 += kt_1;
+                            l1++;
+                        } else {
+                            k12 += kt_1;
+                            l4++;
+                        }
                     } else if (grades[0][k]["disciplines"][i]["marks"][j]["type"] === "kt_2") {
                         kt_2 = grades[0][k]["disciplines"][i]["marks"][j]["value"];
+                        if (k === 0) {
+                            k2 += kt_2;
+                            l2++;
+                        } else {
+                            k22 += kt_2;
+                            l5++;
+                        }
                     } else if (grades[0][k]["disciplines"][i]["marks"][j]["type"] === "qualification") {
                         exam = grades[0][k]["disciplines"][i]["marks"][j]["value"];
-                    } else if (grades[0][k]["disciplines"][i]["marks"][j]["type"] === "qualification_with_mark") {
+                    } else if (grades[0][k]["disciplines"][i]["marks"][j]["type"] === "qualification_with_mark" || grades[0][k]["disciplines"][i]["marks"][j]["type"] === "exam") {
                         exam = grades[0][k]["disciplines"][i]["marks"][j]["value"];
-                    } else if (grades[0][k]["disciplines"][i]["marks"][j]["type"] === "exam") {
-                        exam = grades[0][k]["disciplines"][i]["marks"][j]["value"];
+                        if (k === 0) {
+                            es += exam;
+                            l3++;
+                        } else {
+                            es2 += exam;
+                            l6++;
+                        }
                     }
                 }
                 content.push(
@@ -71,6 +126,33 @@ export default function MarksPage() {
                 );
             }
         }
+        if(isGraphUpdate){
+            let memGraph;
+            let memGraphlable;
+            if (es2 !== 0) {
+                memGraph = [k1 / l1, k2 / l2, es / l3, k12 / l4, k22 / l5, es2 / l6];
+                memGraphlable = ["KT1", "КТ2", "ЭС", "KT1", "КТ2", "ЭС"];
+            } else if (k22 !== 0) {
+                memGraph = [k1 / l1, k2 / l2, es / l3, k12 / l4, k22 / l5];
+                memGraphlable = ["KT1", "КТ2", "ЭС", "KT1", "КТ2"];
+            } else if (k12 !== 0) {
+                memGraph = [k1 / l1, k2 / l2, es / l3, k12 / l4];
+                memGraphlable = ["KT1", "КТ2", "ЭС", "KT1"];
+            } else if (es !== 0) {
+                memGraph = [k1 / l1, k2 / l2, es / l3];
+                memGraphlable = ["KT1", "КТ2", "ЭС"];
+            } else if (k2 !== 0) {
+                memGraph = [k1 / l1, k2 / l2];
+                memGraphlable = ["KT1", "КТ2"];
+            } else if (k1 !== 0) {
+                memGraph = [k1 / l1];
+                memGraphlable = ["KT1"];
+            }
+            setGraph(memGraph);
+            setGraphlable(memGraphlable);
+            setIsGraphUpdate(false)
+        }
+
         return (
             <View style={{marginTop: 5}}>
                 {content}
@@ -97,7 +179,8 @@ export default function MarksPage() {
                     getGrades(memName, memSurname, memGroup, itemValue).then(r => {
                         setGrades(r);
                         setIsLoading(false);
-                        console.log(JSON.stringify(r, null, 2));
+                        console.log(JSON.stringify(r, null, 2))
+                        setIsGraphUpdate(true);
                     });
                     setSelectedLanguage(itemValue);
                 }
@@ -123,19 +206,12 @@ export default function MarksPage() {
             <ScrollView scrollEventThrottle={16} showsVerticalScrollIndicator={false}>
                 <View>
                     <Text style={{fontSize: 20}}>Моя успеваемость</Text>
-                    <LineChart
+                    {isGraphUpdate === false && <LineChart
                         data={{
-                            labels: ["ЭС", "КТ1", "КТ2", "ЭС", "КТ1", "КТ2"],
+                            labels: graphlable,
                             datasets: [
                                 {
-                                    data: [
-                                        Math.random() * 5,
-                                        Math.random() * 5,
-                                        Math.random() * 5,
-                                        Math.random() * 5,
-                                        Math.random() * 5,
-                                        Math.random() * 5,
-                                    ]
+                                    data: graph
                                 }
                             ]
                         }}
@@ -165,7 +241,7 @@ export default function MarksPage() {
                             marginVertical: 8,
                             borderRadius: 16
                         }}
-                    />
+                    />}
                 </View>
 
 
@@ -191,6 +267,13 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
     },
+    column12: {
+        flex: 3,
+        borderRightColor: '#1177d1',
+        borderRightWidth: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     column1: {
         flex: 3,
         borderRightColor: '#1177d1',
@@ -215,6 +298,4 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-
 });
-
