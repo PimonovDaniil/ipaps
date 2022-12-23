@@ -155,7 +155,8 @@ export const getAttendance = async (name, surname, group) => {
         const currentSkips = skipsSplit[i]
         const nameStart = currentSkips.indexOf("<td>") + 4
         const nameEnd = currentSkips.indexOf("</td>")
-        const name = currentSkips.substring(nameStart, nameEnd).trim().replace("\n", "").replace(/  +/g, ' ')
+        const nameRaw = currentSkips.substring(nameStart, nameEnd).trim().replace("\n", "").replace(/  +/g, ' ')
+        const name = nameRaw.replace("<span class=\"text-success\">","").replace("</span>","")
         const dateStart = currentSkips.indexOf("<td>", nameEnd) + 4
         const dateEnd = currentSkips.indexOf("</td>", dateStart)
         const date = currentSkips.substring(dateStart, dateEnd).trim()
