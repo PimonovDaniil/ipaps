@@ -2,19 +2,27 @@ import React, {useEffect, useState} from 'react';
 import {Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {vh, vw} from "react-native-expo-viewport-units";
 import * as SecureStore from "expo-secure-store";
+import {getTimetable} from "../../backend/Parser";
+import Loader from "react-native-modal-loader";
 
 
 export default function TimetablePage() {
     const [internetCheck, setInternetCheck] = useState(0);
     const [timetable, setTimetable] = useState(0);
     const [isLoad, setIsLoad] = useState(false);
+    const [facult, setFacult] = useState();
+    const [num, setNum] = useState();
+    const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
         (async function () {
-            setTimetable(JSON.parse(await SecureStore.getItemAsync("timetable")));
-            console.log(JSON.stringify(JSON.parse(await SecureStore.getItemAsync("timetable"))[0], null, 2))
+            let vremya = JSON.parse(await SecureStore.getItemAsync("timetable"));
+            setTimetable(vremya);
+            console.log(JSON.stringify(vremya[2], null, 2))
+            setFacult(vremya[1]);
+            setNum(vremya[2]);
             setIsLoad(true);
         })();
-    }, [internetCheck]);
+    }, [internetCheck,num]);
 
     const [isDayOpen, setIsDayOpen] = useState([false, false, false, false, false, false]);
 
@@ -79,11 +87,38 @@ export default function TimetablePage() {
         )
     }
 
+    const changeNum = async (direction) => {
+        let newNum = num;
+        if (direction) {
+            newNum++;
+        } else {
+            newNum--;
+        }
+        setNum(newNum);
+        let group = JSON.parse(await SecureStore.getItemAsync("group"));
+        setIsLoading(true);
+        getTimetable(facult, newNum, group).then(r => {
+            setTimetable(r);
+            setIsLoading(false);
+        })
+    }
+
     return (
 
         <View style={{paddingHorizontal: 15, height: vh((80 * Dimensions.get('window').height) / 776)}}>
+            <Loader loading={isLoading} color="#297fb8"/>
             <ScrollView scrollEventThrottle={16} showsVerticalScrollIndicator={false}>
                 {isLoad && days()}
+                <View style={styles.box}>
+                    <TouchableOpacity style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
+                                      onPress={() => changeNum(false)}>
+                        <Text style={{fontSize: 30}}>Туды</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
+                                      onPress={() => changeNum(true)}>
+                        <Text style={{fontSize: 30}}>Сюды</Text>
+                    </TouchableOpacity>
+                </View>
             </ScrollView>
         </View>
 
@@ -96,4 +131,9 @@ const styles = StyleSheet.create({
         borderTopColor: '#1177d1',
         borderTopWidth: 1,
     },
+    box: {
+        height: 100,
+        display: 'flex',
+        flexDirection: 'row',
+    }
 });
